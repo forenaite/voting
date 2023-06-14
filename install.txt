@@ -24,3 +24,4 @@ oc apply -f openshift-specifications/with-images -n voting-app
 # STEP 6 #
 oc get pods -n voting-app
 oc get routes -n voting-app
+PR Testing Wed Jun 14 13:14:24 -03 2023

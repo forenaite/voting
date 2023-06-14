@@ -1,18 +1,26 @@
 cd voting
+
+# STEP 1 #
 oc new-project voting-app
+
+# STEP 2 #
 oc adm policy add-scc-to-user nonroot -z default -n voting-app
 
+# STEP 3 #
 oc process postgresql-ephemeral -n openshift \
     -p DATABASE_SERVICE_NAME=db \
     -p POSTGRESQL_USER=postgres \
     -p POSTGRESQL_PASSWORD=postgres \
     -p POSTGRESQL_DATABASE=postgres | oc apply -f - -n voting-app
 
+# STEP 4 #
 oc process redis-ephemeral -n openshift \
     -p REDIS_PASSWORD=redis | oc apply -f - -n voting-app
 
+# STEP 5 #
 oc apply -f openshift-specifications/ -n voting-app
 oc apply -f openshift-specifications/with-images -n voting-app
 
+# STEP 6 #
 oc get pods -n voting-app
 oc get routes -n voting-app
